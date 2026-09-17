@@ -16,7 +16,7 @@
 */
 
 #include "emu.h"
-#include "media.h"
+#include "media_nofrendo.h"
 
 extern "C" {
 #include "nofrendo/osd.h"
@@ -101,8 +101,6 @@ uint32_t yuv_palette(int r, int g, int b)
     uint8_t vi = v;
     return ((luma & 0xFF00) << 16) | ((ui & 0xF8) << 8) | (vi >> 3); // luma:0:u:v
 }
-
-void make_yuv_palette(const char* name, const uint32_t* pal, int len);
 
 extern rgb_t nes_palette[64];
 extern "C" void pal_generate();

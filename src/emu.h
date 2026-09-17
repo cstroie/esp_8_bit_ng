@@ -150,6 +150,12 @@ void audio_write_16(const int16_t* s, int len, int channels);
 int get_hid_ir(uint8_t* dst);
 uint32_t generic_map(uint32_t m, const uint32_t* target);
 
+// dev/debug helper: dumps a generated NTSC/PAL YUV phase-table for an RGB
+// palette to stdout (used to hand-generate the const tables baked into each
+// emu_*.cpp). Shared by all three backends, so it lives here rather than
+// in any one of them.
+void make_yuv_palette(const char* name, const uint32_t* rgb, int len);
+
 Emu* NewAtari800(int ntsc = 1);
 Emu* NewNofrendo(int ntsc = 1);
 Emu* NewSMSPlus(int ntsc = 1);

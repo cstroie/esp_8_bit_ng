@@ -16,7 +16,7 @@
 */
 
 #include "emu.h"
-#include "media.h"
+#include "media_smsplus.h"
 
 extern "C" {
 #include "smsplus/shared.h"
@@ -194,8 +194,6 @@ int PIN4(float uv)
 // generate ntsc phase tables from RGB palette
 // also generate pal yuyv palette
 // https://segaretro.org/Palette#Game_Gear_palette
-
-void make_yuv_palette(const char* name, const uint32_t* pal, int len);
 
 static void gen_ntsc_pal_tables()
 {
