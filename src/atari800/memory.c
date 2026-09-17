@@ -437,8 +437,10 @@ void MEMORY_StateSave(UBYTE SaveVerbose)
 
 	if (MEMORY_ram_size > 64) {
 		StateSav_SaveUBYTE(&atarixe_memory[0], atarixe_memory_size);
+#ifndef TIGHT_MEM
 		if (ANTIC_xe_ptr != NULL && MEMORY_selftest_enabled)
 			StateSav_SaveUBYTE(antic_bank_under_selftest, 0x800);
+#endif
 	}
 
 	/* Simius XL/XE MapRAM expansion */
@@ -676,9 +678,11 @@ void MEMORY_StateRead(UBYTE SaveVerbose, UBYTE StateVersion)
 				break;
 			}
 
+#ifndef TIGHT_MEM
 			if (ANTIC_xe_ptr != NULL && MEMORY_selftest_enabled)
 				/* Also read ANTIC-visible memory shadowed by Self Test. */
 				StateSav_ReadUBYTE(antic_bank_under_selftest, 0x800);
+#endif
 
 		}
 	}
@@ -802,9 +806,11 @@ void MEMORY_HandlePORTB(UBYTE byte, UBYTE oldval)
 		        || (MEMORY_ram_size == MEMORY_RAM_320_COMPY_SHOP && (byte & 0x20) == 0))) {
 			/* Disable Self Test ROM */
 			Map_memcpy(MEMORY_mem + 0x5000, under_atarixl_os + 0x1000, 0x800);
+#ifndef TIGHT_MEM
 			if (ANTIC_xe_ptr != NULL)
 				/* Also disable Self Test from XE bank accessed by ANTIC. */
 				memcpy(atarixe_memory + (antic_bank << 14) + 0x1000, antic_bank_under_selftest, 0x800);
+#endif
 			MEMORY_SetRAM(0x5000, 0x57ff);
 			MEMORY_selftest_enabled = FALSE;
 		}
@@ -849,9 +855,11 @@ void MEMORY_HandlePORTB(UBYTE byte, UBYTE oldval)
 			if (MEMORY_selftest_enabled) {
 				if (MEMORY_ram_size > 20) {
 					Map_memcpy(MEMORY_mem + 0x5000, under_atarixl_os + 0x1000, 0x800);
+#ifndef TIGHT_MEM
 					if (ANTIC_xe_ptr != NULL)
 						/* Also disable Self Test from XE bank accessed by ANTIC. */
 						memcpy(atarixe_memory + (antic_bank << 14) + 0x1000, antic_bank_under_selftest, 0x800);
+#endif
 					MEMORY_SetRAM(0x5000, 0x57ff);
 				}
 				else
@@ -889,9 +897,11 @@ void MEMORY_HandlePORTB(UBYTE byte, UBYTE oldval)
 			/* Disable Self Test ROM */
 			if (MEMORY_ram_size > 20) {
 				Map_memcpy(MEMORY_mem + 0x5000, under_atarixl_os + 0x1000, 0x800);
+#ifndef TIGHT_MEM
 				if (ANTIC_xe_ptr != NULL)
 					/* Also disable Self Test from XE bank accessed by ANTIC. */
 					memcpy(atarixe_memory + (antic_bank << 14) + 0x1000, antic_bank_under_selftest, 0x800);
+#endif
 				MEMORY_SetRAM(0x5000, 0x57ff);
 			}
 			else
@@ -909,9 +919,11 @@ void MEMORY_HandlePORTB(UBYTE byte, UBYTE oldval)
 			/* Enable Self Test ROM */
 			if (MEMORY_ram_size > 20) {
 				Map_memcpy(under_atarixl_os + 0x1000, MEMORY_mem + 0x5000, 0x800);
+#ifndef TIGHT_MEM
 				if (ANTIC_xe_ptr != NULL)
 					/* Also backup RAM under Self Test from XE bank accessed by ANTIC. */
 					memcpy(antic_bank_under_selftest, atarixe_memory + (antic_bank << 14) + 0x1000, 0x800);
+#endif
 				MEMORY_SetROM(0x5000, 0x57ff);
 			}
 			memcpy(MEMORY_mem + 0x5000, MEMORY_os + 0x1000, 0x800);

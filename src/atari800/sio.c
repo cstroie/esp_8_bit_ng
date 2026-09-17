@@ -71,7 +71,7 @@ static int image_type[SIO_MAX_DRIVES];
 #define IMAGE_TYPE_ATR  1
 #define IMAGE_TYPE_PRO  2
 #define IMAGE_TYPE_VAPI 3
-static FILE *disk[SIO_MAX_DRIVES] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+static FILE *disk[SIO_MAX_DRIVES] = { NULL, NULL };
 static int sectorcount[SIO_MAX_DRIVES];
 static int sectorsize[SIO_MAX_DRIVES];
 /* these two are used by the 1450XLD parallel disk device */
@@ -1685,7 +1685,7 @@ void SIO_StateSave(void)
 {
 	int i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < SIO_MAX_DRIVES; i++) {
 		StateSav_SaveINT((int *) &SIO_drive_status[i], 1);
 		StateSav_SaveFNAME(SIO_filename[i]);
 	}
@@ -1695,7 +1695,7 @@ void SIO_StateRead(void)
 {
 	int i;
 
-	for (i = 0; i < 8; i++) {
+	for (i = 0; i < SIO_MAX_DRIVES; i++) {
 		int saved_drive_status;
 		char filename[FILENAME_MAX];
 
