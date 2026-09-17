@@ -3,7 +3,7 @@
 
 ![ESP_8_BIT](img/esp8bit.jpg)
 
-**ESP_8_BIT** is designed to run on the ESP32 within the Arduino IDE framework. See it in action on [Youtube](https://www.youtube.com/watch?v=qFRkfeuTUrU). Schematic is pretty simple:
+**ESP_8_BIT** is designed to run on the ESP32 within the Arduino framework, built with [PlatformIO](https://platformio.org/). See it in action on [Youtube](https://www.youtube.com/watch?v=qFRkfeuTUrU). Schematic is pretty simple:
 
 ```
     -----------
@@ -25,15 +25,22 @@
 ```
 Audio is on pin 18 by default but can be remapped.
 
-Before you compile the sketch you have 2 choices:
-```
-//  Choose one of the video standards: PAL, NTSC
-#define VIDEO_STANDARD NTSC
+# Building
 
-//  Choose one of the following emulators: EMU_NES,EMU_SMS, EMU_ATARI
-#define EMULATOR EMU_ATARI
+Install [PlatformIO](https://platformio.org/install/cli) (the CLI is all you need), then pick one of six build environments -- one per emulator/video-standard combination:
+
 ```
-Build and flash the firmware, then upload the sample games/demos onto the device's filesystem with `pio run -e <profile> -t uploadfs` (see the `data/` folder) and connect to an old-timey composite input. If you skip the `uploadfs` step, or the SPIFFS filesystem fails to mount, the screen will tell you what's wrong and what to run instead of just showing a black screen.
+atari-ntsc  atari-pal
+nes-ntsc    nes-pal
+sms-ntsc    sms-pal
+```
+
+```
+pio run -e atari-ntsc -t upload      # build and flash the firmware
+pio run -e atari-ntsc -t uploadfs    # upload the data/ folder (games/demos) to SPIFFS
+```
+
+Omitting `-e` builds `atari-ntsc`, the `default_envs` in `platformio.ini`. The `uploadfs` step only needs to be repeated when `data/` changes -- it survives ordinary firmware reflashes. Connect to an old-timey composite input; if you skip `uploadfs`, or the SPIFFS filesystem fails to mount, the screen will tell you what's wrong and what to run instead of just showing a black screen.
 
 # The Emulated
 
@@ -209,7 +216,7 @@ A number of IR input devices are supported if to add a optional IR receiver (TSO
 
 # Time to Play
 
-If you would like to upload your own media copy them into the appropriate subfolder named for each of the emulators in the data folder. Note that the SPIFFS filesystem is fussy about filenames, keep them short, no spaces allowed. Run `pio run -e <profile> -t uploadfs` to copy the data folder to the ESP32 -- this is also how the included sample games/demos get onto the device, they are no longer baked into the firmware itself.
+If you would like to upload your own media copy them into the appropriate subfolder named for each of the emulators in the `data` folder, then run `pio run -e <profile> -t uploadfs` (see [Building](#building) above). Note that the SPIFFS filesystem is fussy about filenames, keep them short, no spaces allowed.
 
 Play through the included demos. Load up your own. Write some Atari Basic masterpiece. Type in a game from an old Antic magazine. Finally get around to finishing Zork.
 
