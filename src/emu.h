@@ -111,8 +111,6 @@ public:
 
     int frame_sample_count();   // # of audio samples for next frame (standard dependent)
 
-    virtual int make_default_media(const std::string& path) = 0;
-
     virtual int insert(const std::string& path, int flags = 1, int disk_index = 0) = 0;
     static int load(const std::string& path, uint8_t** data, int* len);
     static int head(const std::string& path, uint8_t* data, int len);
@@ -143,8 +141,11 @@ void gui_msg(const char* msg);         // temporarily display a msg
 std::string get_ext(const std::string& s);
 extern "C" uint8_t* map_file(const char* path, int len);
 extern "C" void unmap_file(uint8_t* ptr);
-extern "C" FILE* mkfile(const char* path);
-extern "C" int unpack(const char* dst_path, const uint8_t* d, int len);
+
+// set false if the SPIFFS filesystem failed to mount (see mount_filesystem()
+// in esp_8_bit.cpp); the GUI uses this to tell "filesystem broken" apart
+// from "filesystem fine but no games uploaded yet".
+extern bool _spiffs_mounted;
 
 void audio_write_16(const int16_t* s, int len, int channels);
 int get_hid_ir(uint8_t* dst);

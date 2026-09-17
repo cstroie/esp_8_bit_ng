@@ -16,7 +16,6 @@
 */
 
 #include "emu.h"
-#include "media_atari800.h"
 #include "math.h"
 
 extern "C" {
@@ -1200,31 +1199,6 @@ public:
         // no idea. just go with defaults of xl
         string host = path.substr(0,path.find_last_of("/"));
         return "-xl \"" + path + "\"" + " -H1 \"" + host + "\"";
-    }
-
-    //  default media is basic/dos
-    virtual int make_default_media(const string& path)
-    {
-        unpack((path + "/dos20.atr").c_str(),dos20_atr,sizeof(dos20_atr));
-        unpack((path + "/balls_forever.xex").c_str(),balls_forever_xex,sizeof(balls_forever_xex));
-        unpack((path + "/paperweight.xex").c_str(),paperweight_xex,sizeof(paperweight_xex));
-        unpack((path + "/boink.xex").c_str(),boink_xex,sizeof(boink_xex));
-        unpack((path + "/more.xex").c_str(),more_xex,sizeof(more_xex));
-        unpack((path + "/callisto.xex").c_str(),callisto_xex,sizeof(callisto_xex));
-        unpack((path + "/janes_program.xex").c_str(),janes_program_xex,sizeof(janes_program_xex));
-        unpack((path + "/numen_rubik.atr").c_str(),numen_rubik_atr,sizeof(numen_rubik_atr));
-        unpack((path + "/atari_robot.xex").c_str(),atari_robot_xex,sizeof(atari_robot_xex));
-        unpack((path + "/callisto.xex").c_str(),callisto_xex,sizeof(callisto_xex));
-        unpack((path + "/maze.xex").c_str(),maze_xex,sizeof(maze_xex));
-        unpack((path + "/mini_zork.atr").c_str(),mini_zork_atr,sizeof(mini_zork_atr));
-        unpack((path + "/gtia_blast.xex").c_str(),gtia_blast_xex,sizeof(gtia_blast_xex));
-        unpack((path + "/runner_bear.xex").c_str(),runner_bear_xex,sizeof(runner_bear_xex));
-        unpack((path + "/yoomp_nt.xex").c_str(),yoomp_nt_xex,sizeof(yoomp_nt_xex));
-        unpack((path + "/raymaze_2000_ntsc.xex").c_str(),raymaze_2000_ntsc_xex,sizeof(raymaze_2000_ntsc_xex));
-        unpack((path + "/gravity_worms.atr").c_str(),gravity_worms_atr,sizeof(gravity_worms_atr));
-        unpack((path + "/wasteland.atr").c_str(),wasteland_atr,sizeof(wasteland_atr));
-        unpack((path + "/star_raiders_II.atr").c_str(),star_raiders_II_atr,sizeof(star_raiders_II_atr));
-        return 0;
     }
 
     virtual int insert(const std::string& path, int flags, int disk_index)

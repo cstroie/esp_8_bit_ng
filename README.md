@@ -33,7 +33,7 @@ Before you compile the sketch you have 2 choices:
 //  Choose one of the following emulators: EMU_NES,EMU_SMS, EMU_ATARI
 #define EMULATOR EMU_ATARI
 ```
-Build and run the sketch and connect to an old-timey composite input. The first time the sketch runs in will auto-populate the file system with a selection of fine old and new homebrew games and demos. This process only happens once and takes about ~20 seconds so don't be frightened by the black screen.
+Build and flash the firmware, then upload the sample games/demos onto the device's filesystem with `pio run -e <profile> -t uploadfs` (see the `data/` folder) and connect to an old-timey composite input. If you skip the `uploadfs` step, or the SPIFFS filesystem fails to mount, the screen will tell you what's wrong and what to run instead of just showing a black screen.
 
 # The Emulated
 
@@ -209,7 +209,7 @@ A number of IR input devices are supported if to add a optional IR receiver (TSO
 
 # Time to Play
 
-If you would like to upload your own media copy them into the appropriate subfolder named for each of the emulators in the data folder. Note that the SPIFFS filesystem is fussy about filenames, keep them short, no spaces allowed. Use '[ESP32 Sketch Data Upload](https://randomnerdtutorials.com/install-esp32-filesystem-uploader-arduino-ide/)' from the 'Tools' menu to copy a prepared data folder to ESP32.
+If you would like to upload your own media copy them into the appropriate subfolder named for each of the emulators in the data folder. Note that the SPIFFS filesystem is fussy about filenames, keep them short, no spaces allowed. Run `pio run -e <profile> -t uploadfs` to copy the data folder to the ESP32 -- this is also how the included sample games/demos get onto the device, they are no longer baked into the firmware itself.
 
 Play through the included demos. Load up your own. Write some Atari Basic masterpiece. Type in a game from an old Antic magazine. Finally get around to finishing Zork.
 

@@ -861,8 +861,37 @@ public:
         }
     }
 
+    // shown in the file browser in place of a (missing) game list
+    void draw_no_games()
+    {
+        int i = 0;
+        if (!_spiffs_mounted) {
+            draw_item(i++,"SPIFFS filesystem failed",false);
+            draw_item(i++,"to mount.",false);
+            draw_item(i++,"",false);
+            draw_item(i++,"Reset the device. If this",false);
+            draw_item(i++,"keeps happening, erase and",false);
+            draw_item(i++,"reflash the flash filesystem.",false);
+        } else {
+            draw_item(i++,"No games found in:",false);
+            string p = _path;
+            int w = _overlay->OVERLAY_WIDTH-2;
+            if ((int)p.length() > w)
+                p.resize(w);
+            draw_item(i++,p.c_str(),false);
+            draw_item(i++,"",false);
+            draw_item(i++,"Upload the data/ folder:",false);
+            draw_item(i++,"  pio run -t uploadfs",false);
+        }
+        clear(i);
+    }
+
     void draw_files()
     {
+        if (_files.empty()) {
+            draw_no_games();
+            return;
+        }
         int i;
         for (i = 0; i < (int)_files.size(); i++) {
             string c = _files[i];
@@ -894,6 +923,10 @@ public:
 
     void draw_info()
     {
+        if (_files.empty()) {
+            draw_no_games();
+            return;
+        }
         if (_dirty) {
             _dirty = false;
             _info.clear();
@@ -921,10 +954,6 @@ public:
     void insert_default(const char* path)
     {
         read_directory(path);
-        if (_files.empty()) {
-            _emu->make_default_media(_path);
-            read_directory(path);
-        }
 
         int recent = find_file(get_pref("recent"));
 

@@ -16,7 +16,6 @@
 */
 
 #include "emu.h"
-#include "media_nofrendo.h"
 
 extern "C" {
 #include "nofrendo/osd.h"
@@ -469,14 +468,6 @@ public:
     virtual const uint32_t* ntsc_palette() { return cc_width == 3 ? nes_3_phase : nes_4_phase; };
     virtual const uint32_t* pal_palette() { return _nes_yuv_4_phase_pal; };
     virtual const uint32_t* rgb_palette() { return nes_pal; };
-
-    virtual int make_default_media(const string& path)
-    {
-        unpack((path + "/sokoban.nes").c_str(),sokoban_nes,sizeof(sokoban_nes));
-        unpack((path + "/chase.nes").c_str(),chase_nes,sizeof(chase_nes));
-        unpack((path + "/tokumaru_raycast.nes").c_str(),tokumaru_raycast_nes,sizeof(tokumaru_raycast_nes));
-        return 0;
-    }
 };
 
 Emu* NewNofrendo(int ntsc)

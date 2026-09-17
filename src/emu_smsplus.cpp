@@ -16,7 +16,6 @@
 */
 
 #include "emu.h"
-#include "media_smsplus.h"
 
 extern "C" {
 #include "smsplus/shared.h"
@@ -554,14 +553,6 @@ public:
     virtual const uint32_t* ntsc_palette() { return sms_4_phase; };
     virtual const uint32_t* pal_palette() { return _sms_4_phase_pal; };
     virtual const uint32_t* rgb_palette() { return sms_palette_rgb; };
-
-    virtual int make_default_media(const string& path)
-    {
-        unpack((path + "/ftrack.gg").c_str(),ftrack_gg,sizeof(ftrack_gg));
-        unpack((path + "/baraburuu.sms").c_str(),baraburuu_sms,sizeof(baraburuu_sms));
-        unpack((path + "/nanowars8k.sms").c_str(),nanowars8k_sms,sizeof(nanowars8k_sms));
-        return 0;
-    }
 };
 
 Emu* NewSMSPlus(int ntsc)

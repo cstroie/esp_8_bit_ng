@@ -110,8 +110,9 @@ esp_err_t mount_filesystem()
     .format_if_mount_failed = true  // force?
   };
   esp_err_t e = esp_vfs_spiffs_register(&conf);
-  if (e != 0)
-    printf("Failed to mount or format filesystem: %d. Use 'ESP32 Sketch Data Upload' from 'Tools' menu\n",e);
+  _spiffs_mounted = (e == 0);
+  if (!_spiffs_mounted)
+    printf("Failed to mount or format filesystem: %d. Upload the data/ folder with 'pio run -t uploadfs'\n",e);
   vTaskDelay(1);
   printf("... mounted in %d ms\n",millis()-t);
   return e;
