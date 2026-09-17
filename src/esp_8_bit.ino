@@ -27,10 +27,16 @@
 // Supports NTSC/PAL composite video, Bluetooth Classic keyboards and joysticks
 
 //  Choose one of the video standards: PAL,NTSC
+//  Override from platformio.ini with -D VIDEO_STANDARD=PAL (or NTSC)
+#ifndef VIDEO_STANDARD
 #define VIDEO_STANDARD NTSC
+#endif
 
 //  Choose one of the following emulators: EMU_NES,EMU_SMS,EMU_ATARI
+//  Override from platformio.ini with -D EMULATOR=EMU_NES (or EMU_SMS, EMU_ATARI)
+#ifndef EMULATOR
 #define EMULATOR EMU_ATARI
+#endif
 
 //  Many emus work fine on a single core (S2), file system access can cause a little flickering
 //  #define SINGLE_CORE
