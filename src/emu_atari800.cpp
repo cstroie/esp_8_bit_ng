@@ -1220,7 +1220,7 @@ public:
         unpack((path + "/gtia_blast.xex").c_str(),gtia_blast_xex,sizeof(gtia_blast_xex));
         unpack((path + "/runner_bear.xex").c_str(),runner_bear_xex,sizeof(runner_bear_xex));
         unpack((path + "/yoomp_nt.xex").c_str(),yoomp_nt_xex,sizeof(yoomp_nt_xex));
-        unpack((path + "/raymaze_2000_ntsc.xex").c_str(),yoomp_nt_xex,sizeof(yoomp_nt_xex));
+        unpack((path + "/raymaze_2000_ntsc.xex").c_str(),raymaze_2000_ntsc_xex,sizeof(raymaze_2000_ntsc_xex));
         unpack((path + "/gravity_worms.atr").c_str(),gravity_worms_atr,sizeof(gravity_worms_atr));
         unpack((path + "/wasteland.atr").c_str(),wasteland_atr,sizeof(wasteland_atr));
         unpack((path + "/star_raiders_II.atr").c_str(),star_raiders_II_atr,sizeof(star_raiders_II_atr));
