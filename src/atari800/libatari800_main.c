@@ -188,7 +188,7 @@ int libatari800_init(int argc, char **argv) {
 	return Atari800_Initialise(&argc, argv);
 }
 
-char *error_messages[] = {
+const char *error_messages[] = {
 	"no error",
 	"unidentified cartridge",
 	"CPU crash",
@@ -198,9 +198,9 @@ char *error_messages[] = {
 	"memo pad",
 	"invalid escape opcode"
 };
-char *unknown_error = "unknown error";
+const char *unknown_error = "unknown error";
 
-char *libatari800_error_message() {
+const char *libatari800_error_message() {
 	if ((libatari800_error_code < 0) || (libatari800_error_code > (sizeof(error_messages)))) {
 		return unknown_error;
 	}

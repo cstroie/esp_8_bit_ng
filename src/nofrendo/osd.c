@@ -54,7 +54,7 @@ void osd_fullname(char *fullname, const char *shortname)
 }
 
 /* This gives filenames for storage of saves */
-char *osd_newextension(char *string, char *ext)
+char *osd_newextension(char *string, const char *ext)
 {
    return string;
 }

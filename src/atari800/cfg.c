@@ -51,6 +51,11 @@
 #include "util.h"
 #if !defined(BASIC) && !defined(CURSES_BASIC)
 //#include "colours.h"
+/* colours.c was never ported to this ESP32 build (no palette config file
+   support), so these are declared but intentionally left unimplemented;
+   the code calling them is unreachable from this port's init path. */
+int Colours_ReadConfig(char *option, char *ptr);
+void Colours_WriteConfig(FILE *fp);
 #include "screen.h"
 #endif
 #ifdef NTSC_FILTER

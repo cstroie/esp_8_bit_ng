@@ -42,7 +42,7 @@ typedef struct config_s
       
    void (*write_int)(const char *group, const char *key, int value);
    void (*write_string)(const char *group, const char *key, const char *value);
-   char *filename;
+   const char *filename;
 } config_t;
 
 extern config_t config;

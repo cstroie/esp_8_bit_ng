@@ -409,15 +409,23 @@ void MEMORY_StateSave(UBYTE SaveVerbose)
 #endif
 
 	if (Atari800_machine_type == Atari800_MACHINE_XLXE) {
+#ifndef TIGHT_MEM
+		/* MEMORY_basic/MEMORY_os/MEMORY_xegame don't have real backing
+		   storage under TIGHT_MEM (see memory.c near their declaration). */
 		if (SaveVerbose != 0)
 			StateSav_SaveUBYTE(&MEMORY_basic[0], 8192);
+#endif
 		StateSav_SaveUBYTE(&under_cartA0BF[0], 8192);
 
+#ifndef TIGHT_MEM
 		if (SaveVerbose != 0)
 			StateSav_SaveUBYTE(&MEMORY_os[0], 16384);
+#endif
 		StateSav_SaveUBYTE(&under_atarixl_os[0], 16384);
+#ifndef TIGHT_MEM
 		if (SaveVerbose != 0)
 			StateSav_SaveUBYTE(MEMORY_xegame, 0x2000);
+#endif
 	}
 
 	/* Save amount of XE RAM in 16KB banks. */
@@ -588,15 +596,21 @@ void MEMORY_StateRead(UBYTE SaveVerbose, UBYTE StateVersion)
 #endif
 
 	if (Atari800_machine_type == Atari800_MACHINE_XLXE) {
+#ifndef TIGHT_MEM
 		if (SaveVerbose)
 			StateSav_ReadUBYTE(&MEMORY_basic[0], 8192);
+#endif
 		StateSav_ReadUBYTE(&under_cartA0BF[0], 8192);
 
+#ifndef TIGHT_MEM
 		if (SaveVerbose)
 			StateSav_ReadUBYTE(&MEMORY_os[0], 16384);
+#endif
 		StateSav_ReadUBYTE(&under_atarixl_os[0], 16384);
+#ifndef TIGHT_MEM
 		if (StateVersion >= 7 && SaveVerbose)
 			StateSav_ReadUBYTE(MEMORY_xegame, 0x2000);
+#endif
 	}
 
 	if (StateVersion >= 7) {

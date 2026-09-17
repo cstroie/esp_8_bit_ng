@@ -86,7 +86,7 @@ extern int osd_installtimer(int frequency, void *func, int funcsize,
 
 /* filename manipulation */
 extern void osd_fullname(char *fullname, const char *shortname);
-extern char *osd_newextension(char *string, char *ext);
+extern char *osd_newextension(char *string, const char *ext);
 
 /* input */
 extern void osd_getinput(void);

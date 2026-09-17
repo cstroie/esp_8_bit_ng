@@ -278,7 +278,7 @@ const ULONG grafp_lookup[4][256] = {
 0x000FFFFF,0xF00FFFFF,0x0F0FFFFF,0xFF0FFFFF,0x00FFFFFF,0xF0FFFFFF,0x0FFFFFFF,0xFFFFFFFF,
 },};
 
-static ULONG *grafp_ptr[4];
+static const ULONG *grafp_ptr[4];
 static int global_sizem[4];
 
 static const int PM_Width[4] = {1, 2, 1, 4};

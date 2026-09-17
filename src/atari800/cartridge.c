@@ -148,8 +148,8 @@ static int CartIsPassthrough(int type)
 	       type == CARTRIDGE_ATRAX_SDX_64 || type == CARTRIDGE_ATRAX_SDX_128;
 }
 
-CARTRIDGE_image_t CARTRIDGE_main = { CARTRIDGE_NONE, 0, 0, NULL, "" }; /* Left/Right cartridge */
-CARTRIDGE_image_t CARTRIDGE_piggyback = { CARTRIDGE_NONE, 0, 0, NULL, "" }; /* Pass through cartridge for SpartaDOSX */
+CARTRIDGE_image_t CARTRIDGE_main = { CARTRIDGE_NONE, 0, 0, NULL, NULL, "" }; /* Left/Right cartridge */
+CARTRIDGE_image_t CARTRIDGE_piggyback = { CARTRIDGE_NONE, 0, 0, NULL, NULL, "" }; /* Pass through cartridge for SpartaDOSX */
 
 /* The currently active cartridge in the left slot - normally points to
    CARTRIDGE_main but can be switched to CARTRIDGE_piggyback if the main

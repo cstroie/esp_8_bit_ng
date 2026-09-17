@@ -319,7 +319,12 @@ static int load_roms(void)
         // Just point MEMORY_basic to rom image
 
 #ifdef TIGHT_MEM
-        MEMORY_have_basic = basic_ver != -1 && SYSROM_LoadImage(basic_ver, MEMORY_basic);
+        /* SYSROM_LoadImage() is stubbed to `return 1;` and never actually
+           writes through its buffer arg in this build (see sysrom.c), so
+           passing MEMORY_basic here (const under TIGHT_MEM, not yet
+           pointing at SYSROM_roms[basic_ver].data) is safe; cast documents
+           that instead of silently discarding const. */
+        MEMORY_have_basic = basic_ver != -1 && SYSROM_LoadImage(basic_ver, (UBYTE*)MEMORY_basic);
         if (MEMORY_have_basic)
             MEMORY_basic = SYSROM_roms[basic_ver].data;
 #else

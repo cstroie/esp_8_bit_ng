@@ -26,8 +26,8 @@
 #define SLONG signed int
 #define UBYTE unsigned char
 #define UWORD unsigned short
-#ifndef HAVE_WINDOWS_H
-/* Windows headers typedef ULONG */
+#if !defined(HAVE_WINDOWS_H) && !defined(ULONG)
+/* Windows headers typedef ULONG; libatari800.h also already #defines it to uint32_t */
 #define ULONG unsigned int
 #endif
 /* Note: in various parts of the emulator we assume that char is 1 byte
@@ -130,6 +130,11 @@ void Atari800_Frame(void);
 
 /* Reboots the emulated Atari. */
 void Atari800_Coldstart(void);
+
+/* Stub routines replacing the text-based UI (see libatari800_main.c);
+   this ESP32 port doesn't have a ui.h, so declare them here. */
+int UI_SelectCartType(int k);
+void UI_Run(void);
 
 /* Presses the Reset key in the emulated Atari. */
 void Atari800_Warmstart(void);

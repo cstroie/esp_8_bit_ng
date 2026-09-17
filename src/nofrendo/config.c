@@ -108,7 +108,7 @@ static void my_insert(myvar_t *var)
    *current = var;
 }
 
-static void my_save(FILE *stream, myvar_t *var, char **group)
+static void my_save(FILE *stream, myvar_t *var, const char **group)
 {
    if (NULL == var)
       return;
@@ -185,7 +185,7 @@ static char *my_getline(FILE *stream)
 }
 
 /* load_config loads from the disk the saved configuration. */
-static int load_config(char *filename)
+static int load_config(const char *filename)
 {
    FILE *config_file;
 
@@ -291,10 +291,10 @@ static int load_config(char *filename)
 }
 
 /* save_config saves the current configuration to disk.*/
-static int save_config(char *filename)
+static int save_config(const char *filename)
 {
    FILE *config_file;
-   char *group = "";
+   const char *group = "";
 
    config_file = fopen(filename, "w");
    if (NULL == config_file)

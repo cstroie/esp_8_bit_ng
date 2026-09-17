@@ -128,7 +128,7 @@ void gui_toggle_chan(int chan)
                         
 void gui_setfilter(int filter_type)
 {
-   char *types[3] = { "no", "lowpass", "weighted" };
+   const char *types[3] = { "no", "lowpass", "weighted" };
    static int last_filter = 2;
 
    if (last_filter == filter_type || filter_type < 0 || filter_type > 2)
@@ -251,7 +251,7 @@ static void gui_putchar(const uint8 *dat, int height, int x_pos, int y_pos, uint
 }
 
 /* Return length of text in pixels */
-static int gui_textlen(char *str, font_t *font)
+static int gui_textlen(const char *str, font_t *font)
 {
    int pixels = 0;
    int num_chars = strlen(str);
@@ -263,7 +263,7 @@ static int gui_textlen(char *str, font_t *font)
 }
 
 /* Simple textout() type function */
-static int gui_textout(char *str, int x_pos, int y_pos, font_t *font, uint8 color)
+static int gui_textout(const char *str, int x_pos, int y_pos, font_t *font, uint8 color)
 {
    int x_new;
    int num_chars = strlen(str);
@@ -287,7 +287,7 @@ static int gui_textout(char *str, int x_pos, int y_pos, font_t *font, uint8 colo
 }
 
 /* Draw bar-/button-type text */
-static int gui_textbar(char *str, int x_pos, int y_pos, font_t *font,
+static int gui_textbar(const char *str, int x_pos, int y_pos, font_t *font,
                        uint8 color, uint8 bgcolor, bool buttonstate)
 {
    int width = gui_textlen(str, &small);
@@ -584,7 +584,7 @@ void gui_frame(bool draw)
    }
 }
 
-void gui_sendmsg(int color, char *format, ...)
+void gui_sendmsg(int color, const char *format, ...)
 {
    va_list arg;
    va_start(arg, format);

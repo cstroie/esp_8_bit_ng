@@ -283,12 +283,14 @@ uint32_t us() {
 // HSYNCH period is 44/315*455 or 63.55555..us
 // Field period is 262*44/315*455 or 16651.5555us
 
+#ifndef IRE
 #define IRE(_x)          ((uint32_t)(((_x)+40)*255/3.3/147.5) << 8)   // 3.3V DAC
 #define SYNC_LEVEL       IRE(-40)
 #define BLANKING_LEVEL   IRE(0)
 #define BLACK_LEVEL      IRE(7.5)
-#define GRAY_LEVEL       IRE(50)
 #define WHITE_LEVEL      IRE(100)
+#endif
+#define GRAY_LEVEL       IRE(50)   // 50 IRE reference gray, used for colorburst calibration below
 
 
 #define P0 (color >> 16)

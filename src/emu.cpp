@@ -268,8 +268,8 @@ int unpack(const char* dst, const uint8_t* d, int len)
     if (!f)
         return -1;
 
-    #define BUF_SIZE 0x8000
-    uint8_t* buf = new uint8_t[BUF_SIZE];
+    #define UNPACK_BUF_SIZE 0x8000
+    uint8_t* buf = new uint8_t[UNPACK_BUF_SIZE];
     if (!buf) {
         fclose(f);
         return -1;  // could use a smaller window on compression but would not generalize to other people's zips
@@ -283,7 +283,7 @@ int unpack(const char* dst, const uint8_t* d, int len)
     tinfl_init(dec);
     while (i < len) {
         in_bytes = len-i;
-        out_bytes = BUF_SIZE;
+        out_bytes = UNPACK_BUF_SIZE;
         status = tinfl_decompress(dec,d+i,&in_bytes,buf,buf,&out_bytes,11);
         if (out_bytes != fwrite(buf,1,out_bytes,f)) {
             status = TINFL_STATUS_FAILED;

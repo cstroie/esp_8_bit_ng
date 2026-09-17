@@ -33,6 +33,7 @@ hci_handle hci_open()
     _hci_transport._cb.notify_host_recv = [](uint8_t *data, uint16_t len) -> int {
         if (_hci_transport.handler)
             _hci_transport.handler(&_hci_transport,data,len,_hci_transport.handler_ref);
+        return 0;
     };
     _hci_transport._cb.notify_host_send_available = []() {
         if (_hci_transport.ready_handler)
@@ -64,6 +65,7 @@ void hci_set_ready_to_send_handler(hci_handle h, hci_on_ready_to_send_handler p,
 int  hci_send(hci_handle h, const uint8_t* data, int len)
 {
     esp_vhci_host_send_packet((uint8_t*)data,len);
+    return len;
 }
 
 int  hci_send_available(hci_handle h)
