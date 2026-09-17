@@ -281,7 +281,7 @@ static void gen_rgb_palette()
 // big mem req
 //uint8_t sms_videodata[256*240] = {0};   // larger than it needs to be at 60k
 uint8_t* sms_videodata = 0;               // dynamically allocated
-uint8_t sms_sram[0x8000];                 // 32k
+uint8_t* sms_sram = 0;                    // 32k, dynamically allocated (battery-backed cart RAM)
 
 const char* _sms_ext[] = {
     "sms",
@@ -352,6 +352,7 @@ public:
         bitmap.pitch = 256;
         bitmap.depth = 8;
         sms.dummy = sms_videodata;
+        sms_sram = new uint8_t[0x8000];
         sms.sram = sms_sram;
 
         // center on 240?
